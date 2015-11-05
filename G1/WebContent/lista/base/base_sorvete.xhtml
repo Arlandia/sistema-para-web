@@ -1,0 +1,88 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	 xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="titulo">Cadastro Base Sorvete</ui:define>
+	
+	<ui:define name="corpo">
+		<h1>Base Sorvete</h1>
+		<h:form acceptcharset="ISO-8859-1">
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+			<p:toolbar styleClass="marginToolbar" >
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/cadastro/base/base_sorvete"></p:button>
+					<p:commandButton value="Salvar" id="botaoSalvar" action="#{compraBean.inserir}"></p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar" outcome="/lista/base/sorvete_base"></p:button>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" id="painel" styleClass="painel_grid" columnClasses="rotulo,campo">
+				
+
+				<p:outputLabel value="Liga Neutra" for="liga_neutra"></p:outputLabel >
+				<p:inputText value="#{baseSorveteBean.baseSorvete.ligaNeutra}" 
+					id="liga_neutra" size="30"  maxlength="35"
+					required="true"
+	                requiredMessage="É necessário o numero do liga neutra."
+				></p:inputText>
+				
+				<p:outputLabel value="Leite" for="Leite" ></p:outputLabel >
+				<p:inputText value="#{baseSorveteBean.baseSorvete.leite}" 
+					id="leite" size="30" maxlength="30"
+					required="true"
+                    requiredMessage="É necessário o leite."
+				></p:inputText>
+				
+				<p:outputLabel value="Sabor" for="sabor" ></p:outputLabel >
+				<p:inputText id="Sabor"
+                    value="#{baseSorveteBean.baseSorvete.emulsao}"
+                    size="30"  maxlength="30"
+                    required="true"
+                    requiredMessage="É necessário o emulsao."
+                 ></p:inputText>
+                    
+                <p:outputLabel value="Leite Condesado" for="leite_condesado" ></p:outputLabel >
+				<p:inputText id="leite_condesado"
+                    value="#{baseSorveteBean.baseSorvete.leiteCondesado}"
+                    size="30"  maxlength="30"
+                    required="true"
+                    requiredMessage="É necessário o leite condesado."
+                 ></p:inputText>
+                 
+                 <p:outputLabel value="Açucar" for="acucar" ></p:outputLabel >
+				<p:inputText id="acucar"
+                    value="#{baseSorveteBean.baseSorvete.açucar}"
+                    size="30"  maxlength="30"
+                    required="true"
+                    requiredMessage="É necessário o açucar."
+                 ></p:inputText>
+                 
+                 <p:outputLabel value="Leite" for="leite" ></p:outputLabel >
+				<p:inputText id="acucar"
+                    value="#{baseSorveteBean.baseSorvete.leite}"
+                    size="30"  maxlength="30"
+                    required="true"
+                    requiredMessage="É necessário o leite."
+                 ></p:inputText>
+                 
+                  <p:outputLabel value="Chocolate" for="chocolate" ></p:outputLabel >
+				<p:inputText id="acucar"
+                    value="#{baseSorveteBean.baseSorvete.chocolate}"
+                    size="30"  maxlength="30"
+                    required="true"
+                    requiredMessage="É necessário o chocolate."
+                 ></p:inputText>
+                 
+                
+                 
+               
+                                     
+			</p:panelGrid>
+	</h:form>
+	</ui:define>
+</ui:composition>

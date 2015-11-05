@@ -1,0 +1,94 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Cadastro Produto</ui:define>
+
+	<ui:define name="corpo">
+		<h1>Cadastro Produto</h1>
+		<h:form acceptcharset="ISO-8859-1">
+		 <h:inputHidden value="#{produtoBean.produto.codigo}"></h:inputHidden>
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+			<p:toolbar styleClass="marginToolbar">
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/cadastro/produto"></p:button>
+					<p:commandButton value="Salvar" id="botaoSalvar"
+						action="#{produtoBean.inserir}"></p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar"></p:button>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panelGrid columns="2" id="painel" styleClass="painel_grid"
+				columnClasses="rotulo,campo">
+
+
+				<p:outputLabel value="Colaborador" for="colaborador"></p:outputLabel>
+				<p:selectOneMenu id="colaborador"
+					value="#{produtoBean.colaboradorId}" filter="true"
+					filterMatchMode="contains">
+					<f:selectItem itemLabel="Selecione" noSelectionOption="true"></f:selectItem>
+					<f:selectItems var="colaborador"
+						value="#{colaboradorBean.listaColaborador}"
+						itemLabel="#{colaborador.nome}" itemValue="#{colaborador.condigo}"></f:selectItems>
+				</p:selectOneMenu>
+
+				<p:outputLabel value="Quantidade" for="quantidade"></p:outputLabel>
+				<p:inputText value="#{produtoBean.produto.quantidade}" id="quantidade"
+					size="30" maxlength="35" required="true"
+					requiredMessage="É necessário o nome do insumo."></p:inputText>
+
+				<p:outputLabel value="Observação" for="observacao"></p:outputLabel>
+				<p:inputTextarea id="observacao"
+					value="#{produtoBean.produto.observacao}" cols="30" row="35"
+					required="true" requiredMessage="É necessário  a observação."></p:inputTextarea>
+
+
+                <p:outputLabel value="Data Fabricação" for="data_fabricacao" ></p:outputLabel >
+				<p:calendar id="data_fabricacao"
+                    value="#{produtoBean.data}"
+                     size="30"  maxlength="30"
+                    required="true"
+                    requiredMessage="É necessário o cupom."
+                    effect="fold"
+                    converterMessage="Data no formato inválido.Utilize dd/mm/aaaa"
+	                pattern="dd/MM/yyyy">
+	                                 
+	                <f:convertDateTime pattern="dd/MM/yyyy"  type="date"></f:convertDateTime>
+                    </p:calendar>
+                    
+
+
+
+                   <p:outputLabel value="Alertas" for="alerta"></p:outputLabel >   
+            <p:selectManyCheckbox id="alerta" value="#{produtoBean.produto.listaAlertaProduto}" converter="converter">
+                  <f:selectItems var="alerta" value="#{produtoBean.listaAlerta}" itemLabel="#{alerta.nome}" itemValue="#{alerta}"></f:selectItems>
+       
+           </p:selectManyCheckbox>
+ 
+
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>
+
+
+<!--                       
+                                       <p:outputLabel value="Compra" for="compra" ></p:outputLabel >
+	                 <p:selectOneMenu id="compra" value="#{insumoBean.compraId}" >
+	                 	<f:selectItem itemLabel="Selecione.."  noSelectionOption="true"></f:selectItem> 
+	                 	<f:selectItems var="compra" value="#{compraBean.listaCompra}" itemLabel="#{compra.numeroCupom}" itemValue="#{compra.codigo}"></f:selectItems>
+                 </p:selectOneMenu>
+                                       para pegar dados do tipo manytomany
+                                      <p:outputLabel value="Compra" for="compra" ></p:outputLabel >
+	                 <p:selectOneMenu id="compra" value="#{insumoBean.compra}" 
+	                                    converter="converterCompra" process="@this">
+	                 	<f:selectItem itemLabel="Selecione.."  noSelectionOption="true"></f:selectItem> 
+	                 	<f:selectItems var="compra" value="#{insumoBean.listaCompra}" itemLabel="#{compra.numeroCupom}" itemValue="#{compra}"></f:selectItems>
+                 </p:selectOneMenu>
+  -->
+                                     

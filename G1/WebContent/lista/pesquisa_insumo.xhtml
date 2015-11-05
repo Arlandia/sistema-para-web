@@ -1,0 +1,76 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Pesquisa Insumo</ui:define>
+
+	<ui:define name="corpo">
+		<h1>Pesquisa Insumo</h1>
+		<h:form acceptcharset="ISO-8859-1">
+			<p:toolbar styleClass="marginToolbar">
+				<p:toolbarGroup>
+					<p:commandButton value="Pesquisar"
+						action="#{insumoBean.buscarNome}" update="@form"></p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/cadastro/insumo"></p:button>
+				</p:toolbarGroup>
+
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painel" styleClass="painel_grid"
+				columnClasses="rotulo,campo">
+
+
+				<p:outputLabel value="Marca" for="marca"></p:outputLabel>
+				<p:inputText value="#{insumoBean.insumo.nome}" id="marca"
+					size="40" maxlength="35"></p:inputText>
+
+			</p:panelGrid>
+
+			<p:dataTable styleClass="dataTable_pesquisa" id="insumoTable"
+				value="#{insumoBean.listaInsumo}" var="insumo"
+				emptyMessage="Nenhum produto encontrado" rows="6" paginator="true"
+				paginatorAlwaysVisible="false" paginatorPosition="bottom"  widgetVar="insumoTable">
+				<p:column headerText="Marca">
+					<h:outputText value="#{insumo.nome}"></h:outputText>
+				</p:column>
+				<p:column headerText="Tipo Insumo">
+					<h:outputText value="#{insumo.tipoInsumo.nome}"></h:outputText>
+				</p:column>
+				<p:column headerText="Descrição">
+					<h:outputText styleClass="NoMeio" value="#{insumo.descricao}"></h:outputText>
+				</p:column>
+				<p:column headerText="Valor">
+					<h:outputText styleClass="NoMeio" value="#{insumo.valorTotal}"></h:outputText>
+				</p:column>
+				
+				<p:column headerText="Editar">
+					<p:commandButton action="#{insumoBean.preparaAlteracao}"
+						icon="ui-icon-pencil" title="Edital">
+						<f:setPropertyActionListener value="#{insumo}"
+							target="#{insumoBean.insumo}"></f:setPropertyActionListener>
+					</p:commandButton>
+				</p:column>
+				<p:column headerText="Apagar">
+					<p:growl id="message" showDetail="true" />
+					<p:commandButton icon="ui-icon-trash" update="message"
+						action="#{insumoBean.remove}">
+						<p:confirm header="Confirmação de Exclusão"
+							message="Deseja Excluir este Alerta?" icon="ui-icon-trash" />
+						<f:setPropertyActionListener value="#{insumo}"
+							target="#{insumoBean.alerta}"></f:setPropertyActionListener>
+					</p:commandButton>
+				</p:column>
+			</p:dataTable>
+
+			<p:confirmDialog global="true" showEffect="fade" hideEffect="explode" widgetVar="deleta">
+        <p:commandButton value="sim" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":formulario:insumoTable" />
+        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+		</h:form>
+	</ui:define>
+</ui:composition>

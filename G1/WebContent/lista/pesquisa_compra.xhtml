@@ -1,0 +1,68 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	 xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="titulo">Pesquisa Compra</ui:define>
+	
+	<ui:define name="corpo">
+		<h1>Pesquisa Compra</h1>
+		<h:form acceptcharset="ISO-8859-1">
+			<p:toolbar styleClass="marginToolbar" >
+			<p:toolbarGroup >
+							<p:commandButton value="Pesquisar"  action="#{compraBean.buscarNumeroCupom}"   update="@form"></p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/cadastro/compra"></p:button>
+				</p:toolbarGroup>
+				
+			</p:toolbar>
+			
+			
+			
+			<p:panelGrid columns="2" id="painel" styleClass="painel_grid" columnClasses="rotulo,campo">
+				
+	
+				
+				<p:outputLabel value="Numero Cupom" for="numeroCupom" ></p:outputLabel >
+				<p:inputText value="#{compraBean.compra.numeroCupom}" id="numeroCupom" size="40" maxlength="35"></p:inputText>
+				
+			</p:panelGrid>
+			
+			<p:dataTable  styleClass="dataTable_pesquisa"  id="compraTable" value="#{compraBean.listaCompra}" var="compra" emptyMessage="Nenhum produto encontrado" 
+			rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+			<p:column sortBy="Fornecedor" headerText="Fornecedor">
+					<h:outputText  value="#{compra.fornecedor.nome}"></h:outputText>				
+				</p:column>
+				<p:column sortBy="Numero Cupom" headerText="Numero Cupom">
+					<h:outputText  value="#{compra.numeroCupom}"></h:outputText>				
+				</p:column>
+				<p:column headerText="Itens">
+					<h:outputText styleClass="NoMeio" value="#{compra.itens}"></h:outputText>				
+				</p:column>
+				<p:column headerText="Data Cupom">
+					<h:outputText  styleClass="NoMeio" value="#{compra.dataCupom}"></h:outputText>				
+				</p:column>
+				<p:column headerText="Editar">
+					<p:commandButton action="#{compraBean.preparaAlteracao}" icon="ui-icon-pencil" title="Edital">
+						<f:setPropertyActionListener value="#{compra}" target="#{compraBean.compra}"></f:setPropertyActionListener>
+					</p:commandButton>			
+				</p:column>
+				<p:column headerText="Apagar">
+				<p:growl id="message" showDetail="true"  life="6000" severity="info"/>
+					<p:commandButton icon="ui-icon-trash"  update="message" action="#{compraBean.remove}">
+						 <p:confirm header="Confirmação de Exclusão" message="Deseja Excluir este Alerta?" icon="ui-icon-trash" />
+						 <f:setPropertyActionListener value="#{compra}" target="#{compraBean.compra}"></f:setPropertyActionListener>
+					</p:commandButton>				
+				</p:column>
+			</p:dataTable>
+			
+      <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+        <p:commandButton value="sim" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+	</h:form>
+	</ui:define>
+</ui:composition>

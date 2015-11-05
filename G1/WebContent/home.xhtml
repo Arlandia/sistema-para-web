@@ -1,0 +1,282 @@
+<ui:composition template="WEB-INF/template/LayoutPadrao.xhtml"
+	 xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="titulo">Home-Bem Vindo</ui:define>
+	
+	<ui:define name="corpo">
+	 
+	 <div id="blocoEsqueda">
+	     <div class="bordaBloco">
+		      <div class="bloco" id="b1">
+		         <h:outputLink value="faces/relatorios/relatorio_insumo.xhtml">
+			       <h:outputLabel>Insumos em Estoque</h:outputLabel><br/>
+			    
+				  <h:panelGrid   columns="2" id="painel" styleClass="painel_grid" columnClasses="rotulo,campo">
+				  
+					 <p:outputLabel value="#{home.maiorQtaInsumo.tipoInsumo.nome}"></p:outputLabel>
+					  <p:outputLabel value="#{home.maiorValorMaior}"></p:outputLabel>
+					   <p:outputLabel value="#{home.menorQtaInsumo.tipoInsumo.nome}"></p:outputLabel>
+					  <p:outputLabel value="#{home.menorValorMenor}"></p:outputLabel>
+				  </h:panelGrid>
+				  </h:outputLink>
+		      </div>
+		</div>    
+		 <div class="bordaBloco">
+		      <div class="bloco" id="b1">
+			       <h:outputLabel>Última Fabricação</h:outputLabel><br/>
+			       
+				    <h:panelGrid   columns="2" id="painel2" styleClass="painel_grid" columnClasses="rotulo,campo">
+				  
+				  <ui:repeat var="fabricacao" value="#{home.listUltimasFabricacao}">	
+				   <tr>	
+				      <td>	  
+				      <p:outputLabel  value="#{fabricacao.tipoProduto.nome}    "></p:outputLabel>
+				      <p:outputLabel  value="#{fabricacao.volumeTotal}"></p:outputLabel>
+					    
+					    </td>	
+					    </tr>
+				  </ui:repeat>
+					
+				
+				  </h:panelGrid>
+		      </div>
+		</div>    
+		      
+		  <div class="bordaBloco">
+		      <div class="bloco" id="b1">
+		         <h:outputLabel>Ultimas Produções</h:outputLabel><br/>
+				    <h:panelGrid   columns="2" id="painel_produto" styleClass="painel_grid" columnClasses="rotulo,campo">
+				  
+				  <ui:repeat var="producao" value="#{home.tresUltimoProduto}">	
+				   <tr>	
+				      <td>	  
+				      <p:outputLabel  value="#{producao.fabricacao.tipoProduto.nome}    "></p:outputLabel>
+				      <p:outputLabel  value="#{producao.quantidade}"></p:outputLabel>
+					    
+					    </td>	
+					    </tr>
+				  </ui:repeat>
+				  </h:panelGrid>
+		      </div>
+		</div>    
+		 <div class="bordaBloco">
+		      <div class="bloco" id="b1">
+			       <h:outputLabel>Compras</h:outputLabel><br/>
+				   <h:panelGrid   columns="2" id="painel_compra" styleClass="painel_grid" columnClasses="rotulo,campo">
+				  
+					  <p:outputLabel value="Cupom"></p:outputLabel>
+					  <p:outputLabel  value="#{home.pegarUltimaCompra.numeroCupom}"></p:outputLabel>
+					   <p:outputLabel value="Valor"></p:outputLabel>
+					  <p:outputLabel  value="#{home.pegarUltimaCompra.valorTotal}"></p:outputLabel>
+					   <p:outputLabel value="Itens"></p:outputLabel>
+					  <p:outputLabel  value="#{home.pegarUltimaCompra.itens}"></p:outputLabel>
+				
+				  </h:panelGrid>
+		      </div>
+		</div>    
+			 
+			  
+     </div>   
+     
+     	 <div id="blocoCenter">
+		      <div class="bordaBloco">
+			      <div class="bloco" id="b1">
+				       <h:outputLabel>Último Alerta Insumo</h:outputLabel><br/>
+					   <h:panelGrid   columns="3" id="painel_alerta_insumo" styleClass="painel_grid" columnClasses="rotulo,campo">
+					  		 <ui:repeat  size="1" var="insumo" value="#{home.ultimoId.listaAlertaInsumos}">	
+					   <tr>	
+					      <td>	
+					          <p:outputLabel  value="#{home.ultimoId.tipoInsumo.nome}    "></p:outputLabel> 
+					          <p:outputLabel  value="#{home.ultimoId.compra.numeroCupom}    "></p:outputLabel>  
+					          <p:outputLabel  value="#{insumo.nome}    "></p:outputLabel>
+						  </td>	
+				     </tr>
+						 </ui:repeat>
+					
+					  </h:panelGrid>
+			      </div>
+		     </div>    
+		      
+		     <div class="bordaBloco">
+		      <div class="bloco" id="b1">
+			       <h:outputLabel> Útimo Alerta Fabricação </h:outputLabel><br/>
+				  <h:panelGrid   columns="2" id="painel_alerta_fabricacao" styleClass="painel_grid" columnClasses="rotulo,campo">
+				  		 <ui:repeat var="fabricacao" value="#{home.ultimaFabricacao.listaAlertaFabricacao}">	
+					   <tr>	
+					      <td>	
+					          <p:outputLabel  value="#{home.ultimaFabricacao.tipoProduto.nome}    "></p:outputLabel> 
+					          <p:outputLabel  value="#{home.ultimaFabricacao.volumeTotal}    "></p:outputLabel>  
+					          <p:outputLabel  value="#{fabricacao.nome}    "></p:outputLabel>
+						  </td>	
+				     </tr>
+						 </ui:repeat>
+					 
+				
+				  </h:panelGrid>
+		      </div>
+		</div>    
+		      
+		  <div class="bordaBloco">
+		      <div class="bloco" id="b1">
+			    
+				   <h:outputLabel>Último Alerta Produto</h:outputLabel><br/>
+				  <h:panelGrid   columns="2" id="painel_alerta_produto" styleClass="painel_grid" columnClasses="rotulo,campo">
+					  		  <ui:repeat var="produto" value="#{home.ultimaProducao.listaAlertaProduto}">	
+					   <tr>	
+					      <td>	
+					          <p:outputLabel  value="#{home.ultimaProducao.fabricacao.tipoProduto.nome}    "></p:outputLabel> 
+					          <p:outputLabel  value="#{home.ultimaProducao.quantidade}    "></p:outputLabel>  
+					          <p:outputLabel  value="#{produto.nome}    "></p:outputLabel>
+						  </td>	
+				     </tr>
+						 </ui:repeat>
+				
+				  </h:panelGrid>
+		      </div>
+		</div>    
+		      
+		<div class="bordaBloco">
+		      <div class="bloco" id="b1">
+			    <h:outputLabel> Fabricação Sorvete</h:outputLabel><br/>
+				  <h:panelGrid   columns="2" id="painel_sorvete" styleClass="painel_grid" columnClasses="rotulo,campo">
+				  
+					  <p:outputLabel value="#{home.volumeTotalFabricacaoSorvete}"></p:outputLabel>
+					 
+				
+				  </h:panelGrid>
+		      </div>
+		</div>    
+			 
+			  
+     </div>
+     
+    <div id="blocoCenter2">
+    	<div class="separaBloco">
+    	 	<div class="bordaBloco_menor esq">
+			      <div class="bloco_menor">
+				       <h:outputLabel>Internet</h:outputLabel><br/>
+					
+			      </div>
+		      </div> 
+		      <div class="bordaBloco_menor esq">
+			      <div class="bloco_menor ">
+				       <h:outputLabel>Email</h:outputLabel><br/>
+					  
+			      </div>
+		      </div> 
+		      
+		      <div class="bordaBloco_menor esq">
+			      <div class="bloco_menor ">
+				       <h:outputLabel>Agenda</h:outputLabel><br/>
+					  
+			      </div>
+		      </div> 
+		      
+		    
+		      
+		     
+		  </div>   
+		  <div class="separaBloco">
+		    <div class="bordaBloco_menor esq">
+			      <div class="bloco_menor ">
+				       <h:outputLabel>Pesquisa</h:outputLabel><br/>
+					   
+			      </div>
+		      </div> 
+		      
+		     
+		 </div>     
+		       <div class="bordaBloco">
+		      <div class="bloco esq" id="b1">
+			      <p:outputLabel >Produto</p:outputLabel>
+			      <h:panelGrid   columns="2" id="painel_r1" styleClass="painel_grid" columnClasses="rotulo,campo">
+				  
+					  <p:outputLabel >O que fabricou</p:outputLabel>
+					  <p:outputLabel >quantidade fabricada</p:outputLabel>
+				
+				  </h:panelGrid>
+		      </div>
+		</div>    
+		      
+		      <div class="bordaBloco">
+		      <div class="bloco esq" id="b1">
+				   <p:outputLabel >Produto</p:outputLabel>
+			      <h:panelGrid   columns="2" id="painel_r2" styleClass="painel_grid" columnClasses="rotulo,campo">
+				  
+					  <p:outputLabel >O que fabricou</p:outputLabel>
+					  <p:outputLabel >quantidade fabricada</p:outputLabel>
+				
+				  </h:panelGrid>
+		      </div>
+		</div>    
+		     
+			 
+			  
+     </div> 
+     
+      <div id="blocoDireito">
+		     <div class="bordaBloco">
+		      <div class="bloco" id="b1">
+		       <p:outputLabel >Produto</p:outputLabel>
+			        <h:panelGrid   columns="2" id="painel_r3" styleClass="painel_grid" columnClasses="rotulo,campo">
+				  
+					  <p:outputLabel >O que fabricou</p:outputLabel>
+					  <p:outputLabel >quantidade fabricada</p:outputLabel>
+				
+				  </h:panelGrid>
+		      </div>
+		</div>    
+		 <div class="separaBloco_dir">    
+		     	<div class="bordaBloco_menor esq">
+			      <div class="bloco_menor">
+				       <h:outputLabel>Insumos em Estoque</h:outputLabel><br/>
+					   <h:outputLabel>baixo leite condesado</h:outputLabel><br/>
+					   <h:outputLabel>baixo leite condesado</h:outputLabel>
+			      </div>
+			     </div> 
+		      
+		        	<div class="bordaBloco_menor esq">
+			      <div class="bloco_menor">
+				       <h:outputLabel>Insumos em Estoque</h:outputLabel><br/>
+					   <h:outputLabel>baixo leite condesado</h:outputLabel><br/>
+					   <h:outputLabel>baixo leite condesado</h:outputLabel>
+			      </div>
+			      </div>  
+		  </div>    
+		     <div class="separaBloco_dir">    
+		    	<div class="bordaBloco_menor esq">
+			      <div class="bloco_menor">
+				       <h:outputLabel>Insumos em Estoque</h:outputLabel><br/>
+					   <h:outputLabel>baixo leite condesado</h:outputLabel><br/>
+					   <h:outputLabel>baixo leite condesado</h:outputLabel>
+			      </div>
+			      </div>  
+		      
+		       	<div class="bordaBloco_menor esq">
+			      <div class="bloco_menor">
+				       <h:outputLabel>Insumos em Estoque</h:outputLabel><br/>
+					   <h:outputLabel>baixo leite condesado</h:outputLabel><br/>
+					   <h:outputLabel>baixo leite condesado</h:outputLabel>
+			      </div>
+			     </div>   
+		  </div>    
+     </div> 
+     
+     
+     
+
+	
+	</ui:define>
+	
+	
+	
+	
+</ui:composition>
+
+
+	 
+						 

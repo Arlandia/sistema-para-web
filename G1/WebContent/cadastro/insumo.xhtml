@@ -1,0 +1,117 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="titulo">Cadastro Insumo</ui:define>
+	
+	<ui:define name="corpo">
+		<h1>Cadastro Insumo</h1>
+		<h:form acceptcharset="ISO-8859-1">
+		<h:inputHidden value="#{insumoBean.insumo.codigo}"></h:inputHidden>
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+			<p:toolbar styleClass="marginToolbar" >
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/cadastro/insumo"></p:button>
+					<p:commandButton value="Salvar" id="botaoSalvar" action="#{insumoBean.inserir}"></p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar"></p:button>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panelGrid columns="2" id="painel" styleClass="painel_grid" columnClasses="rotulo,campo">
+				
+				
+				<p:outputLabel value="Cupom" for="cupom"></p:outputLabel >
+				<p:inputText value="#{insumoBean.compraView.numeroCupom}" 
+					id="cupom" size="30"  maxlength="35" disabled="true"
+					
+				></p:inputText>
+				 <p:outputLabel value="Tipo Insumo" for="tipo_insumo" ></p:outputLabel >
+                   <p:selectOneMenu id="tipo_insumo" 
+                                    value="#{insumoBean.tipoInsumoId}" 
+                                    filter="true"
+                                    filterMatchMode="contains">
+                 	<f:selectItem itemLabel="Selecione.."  
+                 	              noSelectionOption="true" 
+                 	></f:selectItem>
+                 	<f:selectItems var="tipo_insumo"
+                 	 value="#{tipoInsumoBean.listaTipoInsumo}" 
+                 	 itemLabel="#{tipo_insumo.nome}" 
+                 	 itemValue="#{tipo_insumo.codigo}"></f:selectItems>
+                 	
+                 </p:selectOneMenu> 
+			
+				<p:outputLabel value="Marca" for="marca"></p:outputLabel >
+				<p:inputText value="#{insumoBean.insumo.nome}" 
+					id="marca" size="30"  maxlength="35"
+					required="true"
+	                requiredMessage="É necessário o nome do insumo."
+				></p:inputText>
+				
+				<p:outputLabel value="Peso" for="peso" ></p:outputLabel >
+				<p:inputText value="#{insumoBean.insumo.pesoTotal}" 
+					id="peso" size="30" maxlength="30"
+					required="true"
+                    requiredMessage="É necessário o itens."
+				></p:inputText>
+				
+				
+                    
+                <p:outputLabel value="Valor Insumo" for="valor_insumo" ></p:outputLabel >
+				<p:inputText 
+				    id="valor_insumo"
+                    value="#{insumoBean.valorUnitario}"
+                    size="30" 
+                     maxlength="30"
+                    required="true"
+                    requiredMessage="É necessário o valor do insumo."
+                 
+                 ></p:inputText>
+                     
+                             
+                 
+                <p:outputLabel value="Observação" for="observacao" ></p:outputLabel >
+				<p:inputTextarea
+				     id="observacao"
+                    value="#{insumoBean.insumo.descricao}"
+                    cols="30" row="35"
+                    required="true"
+                    requiredMessage="É necessário  a observação."
+                 ></p:inputTextarea>
+                 
+                 
+               
+              
+               <p:outputLabel value="Alertas" for="alerta"></p:outputLabel >   
+            <p:selectManyCheckbox id="alerta" value="#{insumoBean.insumo.listaAlertaInsumos}" converter="converter">
+                  <f:selectItems var="alerta" value="#{insumoBean.listaAlerta}" itemLabel="#{alerta.nome}" itemValue="#{alerta}"></f:selectItems>
+       
+           </p:selectManyCheckbox>
+ 
+                  
+                        
+                                    
+			</p:panelGrid>
+	</h:form>
+	</ui:define>
+</ui:composition>
+
+
+ <!--                       
+                                       <p:outputLabel value="Compra" for="compra" ></p:outputLabel >
+	                 <p:selectOneMenu id="compra" value="#{insumoBean.compraId}" >
+	                 	<f:selectItem itemLabel="Selecione.."  noSelectionOption="true"></f:selectItem> 
+	                 	<f:selectItems var="compra" value="#{compraBean.listaCompra}" itemLabel="#{compra.numeroCupom}" itemValue="#{compra.codigo}"></f:selectItems>
+                 </p:selectOneMenu>
+                                       para pegar dados do tipo manytomany
+                                      <p:outputLabel value="Compra" for="compra" ></p:outputLabel >
+	                 <p:selectOneMenu id="compra" value="#{insumoBean.compra}" 
+	                                    converter="converterCompra" process="@this">
+	                 	<f:selectItem itemLabel="Selecione.."  noSelectionOption="true"></f:selectItem> 
+	                 	<f:selectItems var="compra" value="#{insumoBean.listaCompra}" itemLabel="#{compra.numeroCupom}" itemValue="#{compra}"></f:selectItems>
+                 </p:selectOneMenu>
+  -->
+                                     

@@ -1,0 +1,67 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	 xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="titulo">Cadastro Colaborador</ui:define>
+	
+	<ui:define name="corpo">
+		<h1>Cadastro Colaborador</h1>
+		<h:form acceptcharset="ISO-8859-1">
+		<h:inputHidden value="#{colaboradorBean.colaborador.condigo}"></h:inputHidden>
+			<p:toolbar styleClass="marginToolbar" >
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/cadastro/colaborador"></p:button>
+					<p:commandButton value="Salvar" id="botaoSalvar" action="#{colaboradorBean.inserir}"></p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar" outcome="/lista/pesquisa_colaborador"></p:button>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" id="painel" styleClass="painel_grid" columnClasses="rotulo,campo">
+				<p:outputLabel value="Nome" for="nome"></p:outputLabel >
+				<p:inputText value="#{colaboradorBean.colaborador.nome}" 
+				             id="nome" size="40" 
+				             maxlength="35" required="true"
+                             requiredMessage="É necessário o nome."
+                             placeholder="Digite o Nome do Colaborador"
+                             ></p:inputText>
+				<p:outputLabel value="Telefone" for="telefone"></p:outputLabel >
+				<p:inputMask value="#{colaboradorBean.colaborador.telefone}" 
+				             id="telefone" size="20" 
+				             maxlength="20"
+				             mask="(99)9999-9999" required="true"
+                             requiredMessage="É necessário o telefone."
+                                 ></p:inputMask>
+				 
+				 <h:outputLabel value="Cargo: " for="cargo"/>
+	             <p:selectOneMenu id="cargo" 
+	                              value="#{colaboradorBean.cargoId}"
+	                              filter="true" filterMatchMode="contains">
+	                          <f:selectItem  itemValue="Selecione"  noSelectionOption="true"/>          
+	                          <f:selectItems  var="cargo" value="#{cargoBean.listaCargo}" itemLabel="#{cargo.nome}" itemValue="#{cargo.codigo}"/>
+	            </p:selectOneMenu>
+	            <p:outputLabel value="Login" for="login"></p:outputLabel >
+				<p:inputText value="#{colaboradorBean.colaborador.login}" 
+				            id="login" size="40" 
+				            maxlength="35"
+				            required="true"
+                            requiredMessage="É necessário o login."
+                             placeholder="Digite o Login"     
+                                 ></p:inputText>
+				<p:outputLabel value="Senha" for="senha"></p:outputLabel >
+				<p:password value="#{colaboradorBean.colaborador.senha}"  
+				            feedback="true" 
+				            id="senha" size="20" maxlength="20"  required="true"
+                                 requiredMessage="É necessário o telefone."
+                                  placeholder="Digite a Senha do Calaborador"
+                                 ></p:password>
+	                    
+	                     
+			</p:panelGrid>
+	</h:form>
+	</ui:define>
+</ui:composition>

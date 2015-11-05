@@ -1,0 +1,93 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	 xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="titulo">Cadastro Compra</ui:define>
+	
+	<ui:define name="corpo">
+		<h1>Cadastro Compra</h1>
+		<h:form acceptcharset="ISO-8859-1">
+			<h:inputHidden value="#{compraBean.compra.codigo}"></h:inputHidden>
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+			<p:toolbar styleClass="marginToolbar" >
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/cadastro/compra"></p:button>
+					<p:commandButton value="Salvar" id="botaoSalvar" action="#{compraBean.inserir}"></p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar" outcome="/lista/pesquisa_compra"></p:button>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" id="painel" styleClass="painel_grid" columnClasses="rotulo,campo">
+				
+				<p:outputLabel for="confirmar_entrega" value="Confirmar Entrega:" />
+		        <p:selectOneRadio id="confirmar_entrega" value="#{compraBean.compra.confirmarChegada}">
+		            <f:selectItem itemLabel="Sim" itemValue="Sim" />
+		            <f:selectItem itemLabel="Não" itemValue="Não" />
+		        </p:selectOneRadio>
+			
+				<p:outputLabel value="Numero Cupom" for="numero_cupom"></p:outputLabel >
+				<p:inputText value="#{compraBean.compra.numeroCupom}" 
+					id="numero_cupom" size="30"  maxlength="35"
+					required="true"
+	                requiredMessage="É necessário o numero do cupom."
+				></p:inputText>
+				
+				<p:outputLabel value="Quantidade Itens" for="quantidade_itens" ></p:outputLabel >
+				<p:inputText value="#{compraBean.compra.itens}" 
+					id="quantidade_itens" size="30" maxlength="30"
+					required="true"
+                    requiredMessage="É necessário o itens."
+				></p:inputText>
+				
+				<p:outputLabel value="Data Cupom" for="data_cupom" ></p:outputLabel >
+				<p:calendar id="data_cupom"
+                    value="#{compraBean.compra.dataCupom}"
+                     size="30"  maxlength="30"
+                    required="true"
+                    requiredMessage="É necessário o cupom."
+                    effect="fold"
+                    converterMessage="Data no formato inválido.Utilize dd/mm/aaaa"
+	                pattern="dd/MM/yyyy">
+	                                 
+	                <f:convertDateTime pattern="dd/MM/yyyy"  type="date"></f:convertDateTime>
+                    </p:calendar>
+                    
+                <p:outputLabel value="Valor Total" for="valor_total" ></p:outputLabel >
+				<p:inputText id="valor_total"
+                    value="#{compraBean.compra.valorTotal}"
+                    size="30"  maxlength="30"
+                    required="true"
+                    requiredMessage="É necessário o valor_total."
+                 ></p:inputText>
+                 
+                <p:outputLabel value="Observação" for="observacao" ></p:outputLabel >
+				<p:inputTextarea id="observacao"
+                    value="#{compraBean.compra.observacao}"
+                    cols="30" row="35"
+                    required="true"
+                    requiredMessage="É necessário  a observação."
+                 ></p:inputTextarea>
+                 
+                 <p:outputLabel value="Fornecedor" for="fornecedor" ></p:outputLabel >
+	                 <p:selectOneMenu id="fornecedor" value="#{compraBean.fornecedorId}" 
+	                                   filter="true" filterMatchMode="contains">
+	                 	<f:selectItem itemValue="Selecione"  noSelectionOption="true"></f:selectItem>
+	                 	<f:selectItems var="fornecedor" value="#{fornecedorBean.listaFornecedor}" itemLabel="#{fornecedor.nome}" itemValue="#{fornecedor.codigo}"></f:selectItems>
+                 </p:selectOneMenu>
+                 
+                   <p:outputLabel value="Colaborador" for="colaborador" ></p:outputLabel >
+                   <p:selectOneMenu id="colaborador" value="#{compraBean.colaboradorId}" 
+                                   filter="true" filterMatchMode="contains">
+                 	<f:selectItem itemValue="Selecione"  noSelectionOption="true"></f:selectItem>
+                 	<f:selectItems var="colaborador" value="#{colaboradorBean.listaColaborador}" itemLabel="#{colaborador.nome}" itemValue="#{colaborador.condigo}"></f:selectItems>
+                 </p:selectOneMenu> 
+                                     
+			</p:panelGrid>
+	</h:form>
+	</ui:define>
+</ui:composition>

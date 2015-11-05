@@ -1,0 +1,55 @@
+<b:beans xmlns="http://www.springframework.org/schema/security"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:b="http://www.springframework.org/schema/beans"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+                            http://www.springframework.org/schema/beans/spring-beans.xsd
+                            http://www.springframework.org/schema/security
+                            http://www.springframework.org/schema/security/spring-security-3.0.xsd">
+ 
+   
+ 
+    <http auto-config="true" use-expressions="true">
+         
+          <intercept-url pattern="/faces/home.xhtml"   access="isAuthenticated()"	/>
+           <intercept-url pattern="/faces/cadastro/insumo.xhtml"   access="isAuthenticated()"	/>
+          <intercept-url pattern="/faces/cadastro/fornecedor.xhtml" access="hasRole('Administrador', 'Compra')"/>
+            <intercept-url pattern="/faces/cadastro/alerta.xhtml" access="hasRole('Gerente_Qualidade')"/>
+           <intercept-url pattern="/faces/cadastro/sabores.xhtml" access="hasRole('Gerente_Qualidade')"/>
+           <intercept-url pattern="/faces/cadastro/tipo_insumo.xhtml" access="hasRole('Gerente_Qualidade')"/>
+            <intercept-url pattern="/faces/cadastro/tipo_produto.xhtml" access="hasRole('Gerente_Qualidade')"/>
+          <intercept-url pattern="/faces/cadastro/cargo.xhtml" access="hasRole('Recurso_humano')"/>
+          <intercept-url pattern="/faces/cadastro/colaborador.xhtml" access="hasRole('Recurso_humano')"/>
+          <intercept-url pattern="/faces/cadastro/compra.xhtml" access="hasRole('Compra')"/>
+           <intercept-url pattern="/faces/cadastro/fabricacao.xhtml" access="hasRole('Operador_I')"/>
+           <intercept-url pattern="/faces/cadastro/produto.xhtml" access="hasRole('Operador_I')"/>        
+        <form-login login-page="/faces/login.xhtml" 
+                     authentication-failure-url="/faces/login.xhtml?erro=true"
+                      	
+                     />
+       <logout logout-url="/j_spring_security_logout" />
+       <access-denied-handler error-page="/faces/erro/403" />
+      
+       
+        
+    </http>
+     
+    <authentication-manager>
+        <authentication-provider>
+            <jdbc-user-service data-source-ref="dataSource"
+               users-by-username-query="SELECT username, password, enable FROM usuario WHERE username=?"
+               authorities-by-username-query="SELECT Usuario_username as username, autorizacoes_nome as authority FROM usuario_autorizacao WHERE Usuario_username=?"
+            />
+        </authentication-provider>
+    </authentication-manager>
+ 
+    <b:bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource" >
+        <b:property name="url" value="jdbc:mysql://localhost:3306/bdgelateria" />
+        <b:property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <b:property name="username" value="root" />
+        <b:property name="password" value="" />
+    </b:bean>
+ 
+</b:beans>
+
+
+   

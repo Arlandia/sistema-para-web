@@ -1,0 +1,60 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	 xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="titulo">Pesquisa Cargo</ui:define>
+	
+	<ui:define name="corpo">
+		<h1>Pesquisa Cargo</h1>
+		<h:form acceptcharset="ISO-8859-1">
+			<p:toolbar styleClass="marginToolbar" >
+			<p:toolbarGroup >
+					<p:commandButton value="Pesquisar"  action="#{colaboradorBean.buscarNome}"   update="@form"></p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/cadastro/colaborador"></p:button>
+				</p:toolbarGroup>
+				
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" id="painel" styleClass="painel_grid" columnClasses="rotulo,campo">
+				
+				
+				
+				<p:outputLabel value="Nome" for="nome" ></p:outputLabel >
+				<p:inputText value="#{colaboradorBean.colaborador.nome}"  placeholder="Digite o Nome do Cargo" id="nome" size="40" maxlength="35"></p:inputText>
+				
+			</p:panelGrid>
+			
+			<p:dataTable  styleClass="dataTable_pesquisa"  id="colaboradorTable" value="#{colaboradorBean.listaColaborador}" var="colaborador" emptyMessage="Nenhum produto encontrado" 
+			rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+				<p:column headerText="Nome">
+					<h:outputText  value="#{colaborador.nome}"></h:outputText>				
+				</p:column>
+				<p:column headerText="Cargo">
+					<h:outputText   value="#{colaborador.cargo.nome}"></h:outputText>				
+				</p:column>
+				<p:column headerText="Editar">
+					<p:commandButton action="#{colaboradorBean.preparaAlteracao}" icon="ui-icon-pencil" title="Edital">
+						<f:setPropertyActionListener value="#{colaborador}" target="#{colaboradorBean.colaborador}"></f:setPropertyActionListener>
+					</p:commandButton>			
+				</p:column>
+				<p:column headerText="Apagar">
+				<p:growl id="message" showDetail="true" />
+					<p:commandButton icon="ui-icon-trash"  update="message" action="#{colaboradorBean.remove}">
+						 <p:confirm header="Confirmação de Exclusão" message="Deseja Excluir este Alerta?" icon="ui-icon-trash" />
+						 <f:setPropertyActionListener value="#{colaborador}" target="#{colaboradorBean.colaborador}"></f:setPropertyActionListener>
+					</p:commandButton>				
+				</p:column>
+			</p:dataTable>
+			
+      <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+        <p:commandButton value="sim" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+	</h:form>
+	</ui:define>
+</ui:composition>

@@ -1,0 +1,75 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	 xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="titulo">Pesquisa Produto</ui:define>
+	
+	<ui:define name="corpo">
+		<h1>Pesquisa Produto</h1>
+		<h:form id="formulario" acceptcharset="ISO-8859-1">
+			<p:toolbar styleClass="marginToolbar" >
+			<p:toolbarGroup >
+						<p:commandButton value="Pesquisar"  action="#{produtoBean.buscarQta}"   update="@form"></p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/cadastro/produto"></p:button>
+				</p:toolbarGroup>
+				
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" id="painel" styleClass="painel_grid" columnClasses="rotulo,campo">
+				
+				<p:outputLabel value="Nome" for="nome" ></p:outputLabel >
+				<p:inputText value="#{produtoBean.produto.quantidade}" id="nome" size="40" maxlength="35"></p:inputText>
+				
+			</p:panelGrid>
+			
+			<p:dataTable  styleClass="dataTable_pesquisa" 
+			   id="produtoTable"
+			   value="#{produtoBean.listaProduto}"
+			   var="produto"
+			   emptyMessage="Nenhum produto encontrado" 
+			   rows="20" 
+			   paginator="true" 
+			   paginatorAlwaysVisible="false"
+			   paginatorPosition="bottom" 
+			   widgetVar="produtoTable">
+				<p:column headerText="Tipo Produto">
+					<h:outputText value="#{produto.fabricacao.tipoProduto.nome}"></h:outputText>				
+				</p:column>
+				<p:column headerText="Colaborador">
+					<h:outputText   value="#{produto.colaborador.nome}"></h:outputText>				
+				</p:column>
+				<p:column headerText="Quantidade">
+					<h:outputText   value="#{produto.quantidade}"></h:outputText>				
+				</p:column>
+				
+				<p:column headerText="Editar">
+					<p:commandButton action="#{produtoBean.preparaAlteracao}" icon="ui-icon-pencil" title="Edital">
+						<f:setPropertyActionListener value="#{produto}" target="#{produtoBean.produto}"></f:setPropertyActionListener>
+					</p:commandButton>			
+				</p:column>
+				<p:column headerText="Apagar">
+				
+				<p:growl id="message" showDetail="true" />
+				
+					<p:commandButton icon="ui-icon-trash"
+					  update="message"
+					   action="#{produtoBean.remove}">
+					   
+						 <p:confirm header="Confirmação de Exclusão" message="Deseja Excluir este produto?" icon="ui-icon-trash" onclick="deleta.show()" />
+						 <f:setPropertyActionListener value="#{produto}" target="#{produtoBean.produto}"></f:setPropertyActionListener>
+					</p:commandButton>				
+				</p:column>
+			</p:dataTable>
+			
+      <p:confirmDialog global="true" showEffect="fade" hideEffect="explode" widgetVar="deleta">
+        <p:commandButton value="sim" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":formulario:produtoTable" />
+        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+	</h:form>
+	</ui:define>
+</ui:composition>

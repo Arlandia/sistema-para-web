@@ -1,0 +1,107 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="titulo">Cadastro Fabricação</ui:define>
+	
+	<ui:define name="corpo">
+		<h1>Cadastro Fabricação</h1>
+		<h:form acceptcharset="ISO-8859-1">
+		<h:inputHidden value="#{fabricacaoBean.fabricacao.codigo}"></h:inputHidden>
+		<p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+			<p:toolbar styleClass="marginToolbar" >
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/cadastro/fabricacao"></p:button>
+					<p:commandButton value="Salvar" id="botaoSalvar" action="#{fabricacaoBean.inserir}"></p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar"></p:button>
+				</p:toolbarGroup>
+			</p:toolbar>
+			<p:panelGrid columns="2" id="painel" styleClass="painel_grid" columnClasses="rotulo,campo">
+				
+				
+				 <p:outputLabel value="Tipo Produto" for="tipo_produto" ></p:outputLabel >
+                   <p:selectOneMenu id="tipo_produto" 
+                                    value="#{fabricacaoBean.tipoProdutoId}" 
+                                    filter="true"
+                                    filterMatchMode="contains">
+                 	<f:selectItem itemLabel="Selecione.."  
+                 	              noSelectionOption="true"
+                 	></f:selectItem>
+                 	<f:selectItems var="tipo_produto"
+                 	 value="#{tipoProdutoBean.listaTipoProdutos}" 
+                 	 itemLabel="#{tipo_produto.nome}" 
+                 	 itemValue="#{tipo_produto.codigo}"></f:selectItems>
+                 </p:selectOneMenu> 
+                 
+                 	 <p:outputLabel value="Sabor" for="sabor" ></p:outputLabel >
+                   <p:selectOneMenu id="sabor" 
+                                    value="#{fabricacaoBean.saboresId}" 
+                                    filter="true"
+                                    filterMatchMode="contains">
+                 	<f:selectItem itemLabel="Selecione.."  
+                 	              noSelectionOption="true"
+                 	></f:selectItem>
+                 	<f:selectItems var="sabores"
+                 	 value="#{saboresBean.listaSabores}" 
+                 	 itemLabel="#{sabores.nome}" 
+                 	 itemValue="#{sabores.codigo}"></f:selectItems>
+                 </p:selectOneMenu> 
+                 
+                  <p:outputLabel value="Colaborador" for="colaborador" ></p:outputLabel >
+                   <p:selectOneMenu id="colaborador" value="#{fabricacaoBean.colaboradorId}" 
+                                   filter="true" filterMatchMode="contains">
+                 	<f:selectItem itemLabel="Selecione"  noSelectionOption="true"></f:selectItem>
+                 	<f:selectItems var="colaborador"
+                 	 value="#{colaboradorBean.listaColaborador}" 
+                 	 itemLabel="#{colaborador.nome}"
+                 	  itemValue="#{colaborador.condigo}"></f:selectItems>
+                 </p:selectOneMenu> 
+			
+				<p:outputLabel value="Base" for="base"></p:outputLabel >
+				<p:inputText value="#{fabricacaoBean.fabricacao.base}" 
+					id="base" size="30"  maxlength="35"
+					required="true"
+	                requiredMessage="É necessário o nome do insumo."
+				></p:inputText>
+				
+			<p:outputLabel value="Observação" for="observacao" ></p:outputLabel >
+				<p:inputTextarea id="observacao"
+                    value="#{fabricacaoBean.fabricacao.observacao}"
+                    cols="30" row="35"
+                    required="true"
+                    requiredMessage="É necessário  a observação."
+                 ></p:inputTextarea>
+				   
+                
+              
+               <p:outputLabel value="Alertas" for="alerta"></p:outputLabel >   
+            <p:selectManyCheckbox id="alerta" value="#{fabricacaoBean.fabricacao.listaAlertaFabricacao}" converter="converter">
+                  <f:selectItems var="alerta" value="#{fabricacaoBean.listaAlerta}" itemLabel="#{alerta.nome}" itemValue="#{alerta}"></f:selectItems>
+       
+           </p:selectManyCheckbox>                        
+			</p:panelGrid>
+	</h:form>
+	</ui:define>
+</ui:composition>
+
+
+ <!--                       
+                                       <p:outputLabel value="Compra" for="compra" ></p:outputLabel >
+	                 <p:selectOneMenu id="compra" value="#{insumoBean.compraId}" >
+	                 	<f:selectItem itemLabel="Selecione.."  noSelectionOption="true"></f:selectItem> 
+	                 	<f:selectItems var="compra" value="#{compraBean.listaCompra}" itemLabel="#{compra.numeroCupom}" itemValue="#{compra.codigo}"></f:selectItems>
+                 </p:selectOneMenu>
+                                       para pegar dados do tipo manytomany
+                                      <p:outputLabel value="Compra" for="compra" ></p:outputLabel >
+	                 <p:selectOneMenu id="compra" value="#{insumoBean.compra}" 
+	                                    converter="converterCompra" process="@this">
+	                 	<f:selectItem itemLabel="Selecione.."  noSelectionOption="true"></f:selectItem> 
+	                 	<f:selectItems var="compra" value="#{insumoBean.listaCompra}" itemLabel="#{compra.numeroCupom}" itemValue="#{compra}"></f:selectItems>
+                 </p:selectOneMenu>
+  -->
+                                     

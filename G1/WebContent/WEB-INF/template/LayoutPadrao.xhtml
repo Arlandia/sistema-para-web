@@ -1,0 +1,154 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui"
+	xmlns:sec="http://www.springframework.org/security/tags">  
+	
+	
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title><ui:insert name="titulo">Sistema de Gerenciamento</ui:insert></title>
+	<h:outputStylesheet library="css" name="sistema.css"/>
+</h:head>
+
+<h:body>
+	<header>
+		<div id="imagem_logo">
+	    	<h:link outcome="/faces/home.xhtml" id="estiloLogoEsquerda">
+	    		<h:graphicImage  library="imagens" name="images.png"/>
+	    	</h:link>
+	    </div>
+	    <div id="estiloMenuBarDireita">
+	    	<span id="ola_usuario">
+		  <h:outputLabel value="#{usuarioController.usuario.username}"></h:outputLabel> 
+			</span> 
+		   <h:form >
+		    	<p:menubar>
+		    		<p:submenu label="Cadastro">
+		    		
+		    			<p:menuitem value="Fornecedor" outcome="/cadastro/fornecedor" rendered="#{sec:areAllGranted('Compra')}" ></p:menuitem>
+		    			<p:menuitem value="Compra" outcome="/cadastro/compra" rendered="#{sec:areAllGranted('Compra')}"></p:menuitem>
+		    			<p:menuitem value="Alerta" outcome="/cadastro/alerta" rendered="#{sec:areAllGranted('Gerente_Qualidade')}"></p:menuitem>
+		    			<p:menuitem value="Insumo" outcome="/cadastro/insumo" rendered="#{sec:areAllGranted('Compra')}"></p:menuitem>
+		    			
+		    		 
+			    			<p:menuitem value="Fabricação" outcome="/cadastro/fabricacao" rendered="#{sec:areAllGranted('Operador_I')}"></p:menuitem>
+			    			<p:menuitem value="Produto" outcome="/cadastro/produto"  rendered="#{sec:areAllGranted('Operador_I')}"></p:menuitem>
+		    		
+		    			<p:menuitem value="Cargo" outcome="/cadastro/cargo" rendered="#{sec:areAllGranted('Recurso_humano')}"></p:menuitem>
+		    			<p:menuitem value="Colaborador" outcome="/cadastro/colaborador" rendered="#{sec:areAllGranted('Recurso_humano')}"></p:menuitem>
+		    		    <p:menuitem value="Tipo Insumo" outcome="/cadastro/tipo_insumo" rendered="#{sec:areAllGranted('Compra')}"></p:menuitem>
+		    		    <p:menuitem value="Tipo Produto" outcome="/cadastro/tipo_produto" rendered="#{sec:areAllGranted('Compra')}"></p:menuitem>
+		    		    <p:menuitem value="Sabores" outcome="/cadastro/sabores" rendered="#{sec:areAllGranted('Gerente_Qualidade')}" ></p:menuitem>
+		    		    <p:menuitem value="Base Sorvete" outcome="/cadastro/base/base_sorvete" rendered="#{sec:areAllGranted('Gerente_Qualidade')}"></p:menuitem>
+		    		</p:submenu>
+		    		<p:submenu label="Pesquisa">
+		    			<p:menuitem value="Fornecedor" outcome="/lista/pesquisa_fornecedor"></p:menuitem>
+		    			<p:menuitem value="Compra" outcome="/lista/pesquisa_compra"></p:menuitem>
+		    			<p:menuitem value="Alerta" outcome="/lista/pesquisa_alerta"></p:menuitem>
+		    			<p:menuitem value="Insumo" outcome="/lista/pesquisa_insumo"></p:menuitem>
+		    			<p:menuitem value="Cargo" outcome="/lista/pesquisa_cargo"></p:menuitem>
+		    			<p:menuitem value="Colaborador" outcome="/lista/pesquisa_colaborador"></p:menuitem>
+		    			<p:menuitem value="Produto" outcome="/lista/pesquisa_produto"></p:menuitem>
+		    			<p:menuitem value="Sabores" outcome="/lista/pesquisa_sabores"></p:menuitem>
+		    		     <p:menuitem value="Fabricação" outcome="/lista/pesquisa_fabricacao"></p:menuitem>
+		    			<p:menuitem value="Tipo Produto" outcome="/lista/pesquisa_tipoproduto"></p:menuitem>
+		    			<p:menuitem value="Tipo Insumo" outcome="/lista/pesquisa_tipoinsumo"></p:menuitem>
+		    		
+		    		</p:submenu>
+		    		<p:submenu label="Relatório"> 
+		    			<p:menuitem value="ComprasTotal" outcome="/relatorios/relatorio_compra"></p:menuitem>
+		    			<p:menuitem value="ComprasMes" outcome="/relatorios/relatorio_itens_compra"></p:menuitem>
+		    		</p:submenu>
+		    		
+		    		<p:menuitem value="Sair" url="/faces/G1/j_spring_security_logout"  ></p:menuitem>
+		    		
+		    	</p:menubar>
+		    	
+		      <a href="/G1/faces/G1/j_spring_security_logout"
+		       style="
+		       top:-10;
+		       right:65;
+		       color:#f4f4f4;
+		       position:relative;
+		       text-decoration:none;
+		       ">Sair</a>
+		    </h:form>
+	    </div>
+	</header>
+    
+    <div id="conteudo">
+    	<ui:insert name="corpo"></ui:insert>
+    		<p:ajaxStatus styleClass="ajax-status">
+    			<f:ajax name="start">
+	    			<f:facet name="start">
+	    				<h:graphicImage library="imagens" name="loader.gif"/>
+	    			</f:facet>
+	    			<f:facet name="complete">
+	    				<h:outputText value=""></h:outputText>
+	    			</f:facet>
+    			</f:ajax>
+    		</p:ajaxStatus>
+    </div>
+    
+    
+    
+    
+    <footer >
+    <p:separator></p:separator>
+    	Sistema de Gerenciamento - Gelateria Alimentos Congelados
+    </footer>		
+</h:body>
+
+
+
+
+
+<!-- 
+Bom! a dois meses desenvolvi um sistema exatamente igual ao que vc descreveu, e com relação ao controle de permissão, vc pode adicionar a mesma tag sec:ifAnyGranted para fazer também o controle dos p:menuitem e não apenas do submenu por inteiro, desta forma se consegue um controle das diferentes opções do submenu para diferentes usuários, porém e necessário definir um pradrão para cada tipo de ROLE_USUARIO, e utilizando seu exemplo vc terá ROLE_USUARIO1, ROLE_USUARIO3, ROLE_USUARIO3 no codigo ficaria assim 
+view plaincopy to clipboardprint?
+
+
+  hoje
+	<sec:authorize ifAllGranted="ROLE_FOO, ROLE_BAR">
+		Lorem ipsum dolor sit amet
+	</sec:authorize>
+	
+	
+<p:submenu label="Cadastros"  icon="ui-icon ui-icon-folder-open">   
+            <sec:ifAnyGranted roles="ROLE_USUARIO1">//somente o usuário 1 pode acessar o item Nota Fiscal  
+            <p:menuitem value="Nota Fiscal" url="f" icon="ui-icon ui-icon-image" />  
+            </sec:ifAnyGranted>  
+  
+            <sec:ifAnyGranted roles="ROLE_USUARIO1, ROLE_USUARIO2">//somente os usuário 1 e 2 podem acessar os itens Contas a Pagar e Balanço.  
+            <p:menuitem value="Contas a Pagar" url="f" icon="ui-icon ui-icon-folder-open" />  
+            <p:menuitem value="Balanço" url="" icon="ui-icon ui-icon-refresh" />  
+            </sec:ifAnyGranted>  
+  
+            <sec:ifAnyGranted roles="ROLE_USUARIO2, ROLE_USUARIO3">//somente os usuário 2 e 3 podem acessar os itens Despesas e Relatórios Gerenciais.  
+            <p:menuitem value="Despesas" url="" />  
+            <p:menuitem value="Relatórios Gerenciais" url="" />  
+            </sec:ifAnyGranted>  
+              
+             <sec:ifAnyGranted roles="ROLE_USUARIO1, ROLE_USUARIO2, ROLE_USUARIO3">//Todos os usuários terão acesso a opção Serviços Internos.  
+            <p:menuitem value="Serviços Internos" url="" />  
+            </sec:ifAnyGranted>  
+  
+  
+  
+  <intercept-url pattern="/faces/cadastro/alerta.xhtml" access="hasRole('Gerente_Qualidade')"/>
+           <intercept-url pattern="/faces/cadastro/sabores.xhtml" access="hasRole('Gerente_Qualidade')"/>
+           <intercept-url pattern="/faces/cadastro/tipo_insumo.xhtml" access="hasRole('Gerente_Qualidade')"/>
+            <intercept-url pattern="/faces/cadastro/tipo_produto.xhtml" access="hasRole('Gerente_Qualidade')"/>
+          <intercept-url pattern="/faces/cadastro/cargo.xhtml" access="hasRole('Recursos_humano')"/>
+          <intercept-url pattern="/faces/cadastro/colaborador.xhtml" access="hasRole('Recursos_humano')"/>
+          <intercept-url pattern="/faces/cadastro/compra.xhtml" access="hasRole('Compra')"/>
+           <intercept-url pattern="/faces/cadastro/fabricacao.xhtml" access="hasRole('Operador_I')"/>
+           <intercept-url pattern="/faces/cadastro/produto.xhtml" access="hasRole('Operador_I')"/>
+</p:submenu>   -->
+
+</html>

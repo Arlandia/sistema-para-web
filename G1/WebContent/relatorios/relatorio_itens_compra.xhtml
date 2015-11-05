@@ -1,0 +1,18 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	 xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+		
+	
+	<ui:define name="titulo">Relatório itens da Compra</ui:define>
+	
+	<ui:define name="corpo">
+		<h1>Relatório itens da  Compra</h1>
+		
+		<p:chart type="line" model="#{graficoCompraMesBean.model}" responsive="true"/>
+        
+        
+	</ui:define>
+</ui:composition>

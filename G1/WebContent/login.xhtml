@@ -1,0 +1,43 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:head>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+	<title>Login</title>
+	<h:outputStylesheet library="css" name="sistema.css"/>
+	
+</h:head>
+<h:body>
+	<div id="login_dialog">
+	      <center>
+                <h:outputText value="Usuário ou senha incorretos!" rendered="#{param.erro}" style="color: darkred"/>
+            </center>
+	 <h1>Bem Vindo</h1>
+	 	<form id="fm" styleClass="form-login" action="G1/j_spring_security_check"  method="post">
+	 		<h:panelGrid columns="2" styleClass="grid-login">
+	 		
+	 				<p:outputLabel for="j_username" value="Login:"></p:outputLabel>
+		 			<p:inputText id="j_username" required="true" size="30"></p:inputText>
+		 			
+		 			<p:outputLabel for="j_password" value="Senha:"></p:outputLabel>
+		 			<p:password id="j_password" required="true" size="30"></p:password>
+		 			
+		 			<h:commandButton value="Login"/>
+		 			<h:panelGroup></h:panelGroup>
+		 			
+                    
+			 			 			
+	 		</h:panelGrid>	
+	 			 		
+	 	</form>
+	 	<div id="branco">
+	 		</div>
+	</div>
+</h:body>
+</html>

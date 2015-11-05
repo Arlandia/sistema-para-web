@@ -1,0 +1,55 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	 xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="titulo">Pesquisa Tipo Produto</ui:define>
+	
+	<ui:define name="corpo">
+		<h1>Pesquisa Tipo Produto</h1>
+		<h:form acceptcharset="ISO-8859-1">
+			<p:toolbar styleClass="marginToolbar" >
+			<p:toolbarGroup >
+					<p:commandButton value="Pesquisar"  action="#{tipoProdutoBean.buscarNome}"   update="@form"></p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/cadastro/tipo_produto"></p:button>
+				</p:toolbarGroup>
+				
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" id="painel" styleClass="painel_grid" columnClasses="rotulo,campo">
+				
+				<p:outputLabel value="Nome" for="nome" ></p:outputLabel >
+				<p:inputText value="#{tipoProdutoBean.tipoProduto.nome}" id="nome" size="40" maxlength="35"></p:inputText>
+				
+			</p:panelGrid>
+			
+			<p:dataTable  styleClass="dataTable_pesquisa"  id="tipoProdutoTable" value="#{tipoProdutoBean.listaTipoProdutos}" var="tipoProduto" emptyMessage="Nenhum produto encontrado" 
+			rows="20" paginator="true" paginatorAlwaysVisible="false" paginatorPosition="bottom">
+				<p:column sortBy="Nome" headerText="Nome">
+					<h:outputText  value="#{tipoProduto.nome}"></h:outputText>				
+				</p:column>
+				<p:column headerText="Editar">
+					<p:commandButton action="#{tipoProdutoBean.preparaAlteracao}" icon="ui-icon-pencil" title="Edital">
+						<f:setPropertyActionListener value="#{tipoProduto}" target="#{tipoProdutoBean.tipoProduto}"></f:setPropertyActionListener>
+					</p:commandButton>			
+				</p:column>
+				<p:column headerText="Apagar">
+				<p:growl id="message" showDetail="true" />
+					<p:commandButton icon="ui-icon-trash"  update="message" action="#{tipoProdutoBean.remove}">
+						 <p:confirm header="Confirmação de Exclusão" message="Deseja Excluir este Tipo Produto?" icon="ui-icon-trash" />
+						 <f:setPropertyActionListener value="#{tipoProduto}" target="#{tipoProdutoBean.tipoProduto}"></f:setPropertyActionListener>
+					</p:commandButton>				
+				</p:column>
+			</p:dataTable>
+			
+      <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+        <p:commandButton value="sim" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+	</h:form>
+	</ui:define>
+</ui:composition>

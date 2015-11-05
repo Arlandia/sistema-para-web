@@ -1,0 +1,47 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+	<ui:define name="titulo">Cadastro Fornecedor</ui:define>
+
+	<ui:define name="corpo">
+		<h1>Cadastro Fornecedor</h1>
+		<h:form  id="form" acceptcharset="ISO-8859-1">
+			<h:inputHidden value="#{fornecedorBean.fornecedor.codigo}"></h:inputHidden>
+			<p:messages id="messages" showDetail="true" autoUpdate="true"
+				closable="true" />
+			<p:toolbar styleClass="marginToolbar">
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/cadastro/fornecedor"></p:button>
+					<p:commandButton value="Salvar" id="botaoSalvar" action="#{fornecedorBean.inserir}" 
+						>
+						<f:ajax execute="nome"></f:ajax>
+						<!--  <p:resetInput target="painel"></p:resetInput>  -->
+					
+						 
+						</p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar" outcome="/lista/pesquisa_fornecedor"></p:button>
+				</p:toolbarGroup>
+			</p:toolbar>
+
+			<p:panelGrid columns="2" id="painel" styleClass="painel_grid"
+				columnClasses="rotulo,campo">
+				<p:outputLabel value="Nome" for="nome"></p:outputLabel>
+				<p:inputText value="#{fornecedorBean.fornecedor.nome}" id="nome"
+					size="40" maxlength="35">
+					<f:ajax render="nome"></f:ajax>
+				</p:inputText>
+
+				<p:outputLabel   value="Telefone" for="telefone"></p:outputLabel>
+				<p:inputMask value="#{fornecedorBean.fornecedor.telefone}"
+					id="telefone" size="20" maxlength="20" mask="(99)9999-9999"></p:inputMask>
+
+			</p:panelGrid>
+		</h:form>
+	</ui:define>
+</ui:composition>

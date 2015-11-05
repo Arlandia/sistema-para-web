@@ -1,0 +1,69 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	 xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="titulo">Pesquisa Sabores</ui:define>
+	
+	<ui:define name="corpo">
+		<h1>Pesquisa Sabores</h1>
+		<h:form id="formulario" acceptcharset="ISO-8859-1">
+			<p:toolbar styleClass="marginToolbar" >
+			<p:toolbarGroup >
+						<p:commandButton value="Pesquisar"  action="#{saboresBean.buscarNome}"   update="@form"></p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Novo" outcome="/cadastro/sabores"></p:button>
+				</p:toolbarGroup>
+				
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" id="painel" styleClass="painel_grid" columnClasses="rotulo,campo">
+				
+				<p:outputLabel value="Nome" for="nome" ></p:outputLabel >
+				<p:inputText value="#{saboresBean.sabores.nome}" id="nome" size="40" maxlength="35"></p:inputText>
+				
+			</p:panelGrid>
+			
+			<p:dataTable  styleClass="dataTable_pesquisa" 
+			   id="saboresTable"
+			   value="#{saboresBean.listaSabores}"
+			   var="sabores"
+			   emptyMessage="Nenhum produto encontrado" 
+			   rows="20" 
+			   paginator="true" 
+			   paginatorAlwaysVisible="false"
+			   paginatorPosition="bottom" 
+			   widgetVar="saboresTable">
+				<p:column headerText="Nome">
+					<h:outputText value="#{sabores.nome}"></h:outputText>				
+				</p:column>
+				
+				<p:column headerText="Editar">
+					<p:commandButton action="#{saboresBean.preparaAlteracao}" icon="ui-icon-pencil" title="Edital">
+						<f:setPropertyActionListener value="#{sabores}" target="#{saboresBean.sabores}"></f:setPropertyActionListener>
+					</p:commandButton>			
+				</p:column>
+				<p:column headerText="Apagar">
+				
+				<p:growl id="message" showDetail="true" />
+				
+					<p:commandButton icon="ui-icon-trash"
+					  update="message"
+					   action="#{saboresBean.remove}">
+					   
+						 <p:confirm header="Confirmação de Exclusão" message="Deseja Excluir este Sabor?" icon="ui-icon-trash" onclick="deleta.show()" />
+						 <f:setPropertyActionListener value="#{sabores}" target="#{saboresBean.sabores}"></f:setPropertyActionListener>
+					</p:commandButton>				
+				</p:column>
+			</p:dataTable>
+			
+      <p:confirmDialog global="true" showEffect="fade" hideEffect="explode" widgetVar="deleta">
+        <p:commandButton value="sim" type="button"  styleClass="ui-confirmdialog-yes" icon="ui-icon-check" update=":formulario:saboresTable" />
+        <p:commandButton value="Não" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+    </p:confirmDialog>
+	</h:form>
+	</ui:define>
+</ui:composition>

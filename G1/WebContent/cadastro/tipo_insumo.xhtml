@@ -1,0 +1,41 @@
+<ui:composition template="/WEB-INF/template/LayoutPadrao.xhtml"
+	 xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+	
+	<ui:define name="titulo">Cadastro Tipo Insumo</ui:define>
+	
+	<ui:define name="corpo">
+		<h1>Cadastro Tipo Insumo</h1>
+		<h:form acceptcharset="ISO-8859-1">
+		<h:inputHidden value="#{tipoInsumoBean.tipoInsumo.codigo}"></h:inputHidden>
+			<p:toolbar styleClass="marginToolbar" >
+				<p:toolbarGroup>
+					<p:button value="Novo" outcome="/cadastro/tipo_insumo"></p:button>
+					<p:commandButton value="Salvar" id="botaoSalvar" action="#{tipoInsumoBean.inserir}"></p:commandButton>
+				</p:toolbarGroup>
+				<p:toolbarGroup align="right">
+					<p:button value="Pesquisar"></p:button>
+				</p:toolbarGroup>
+			</p:toolbar>
+			
+			<p:panelGrid columns="2" id="painel" styleClass="painel_grid" columnClasses="rotulo,campo">
+				<p:outputLabel value="Nome" for="nome"></p:outputLabel >
+				<p:inputText value="#{tipoInsumoBean.tipoInsumo.nome}" id="nome" size="40" maxlength="35">
+					
+				</p:inputText>
+				
+				<p:outputLabel value="Utilidade" for="utilidade"></p:outputLabel >   
+            <p:selectManyCheckbox id="utilidade" value="#{tipoInsumoBean.tipoInsumo.listaTipoInsumoTipoProduto}" converter="converterTipoProduto" >
+                  <f:selectItems var="tipo_produto" value="#{tipoProdutoBean.listaTipoProdutos}" itemLabel="#{tipo_produto.nome}" itemValue="#{tipo_produto}"></f:selectItems>
+       
+           </p:selectManyCheckbox> 
+				
+			</p:panelGrid>
+			
+			   
+	</h:form>
+	</ui:define>
+</ui:composition>
